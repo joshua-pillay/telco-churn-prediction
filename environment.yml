@@ -1,0 +1,19 @@
+name: churn_env
+channels:
+  - defaults
+dependencies:
+  - python=3.12
+  - numpy
+  - openpyxl
+  - scikit-optimize
+  - scikit-learn
+  - pandas
+  - ipykernel
+  - jupyter
+  - seaborn
+  - shap
+  - matplotlib
+  - statsmodels
+  - xgboost
+  - scipy
+prefix: C:\Users\Wits-User\anaconda3\envs\churn_env
