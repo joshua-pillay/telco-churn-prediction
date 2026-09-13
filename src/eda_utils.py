@@ -223,6 +223,16 @@ def plot_hist(feature_df, feature, bin_edges, x_label, axes, rotation,
     xlabel_bins : array of int
         Numeric labels for x-ticks. Default is None. 
     """
+    
+    # shifting value epsilon to change boundary convention:
+    eps = 1e-9
+    
+    # specifies that if feature is "tenure", then apply epsilon to
+    # change boundary convention from left-closed/right-open to
+    # left-open/right-closed:
+    if feature == "tenure":
+       feature_df[feature] = feature_df[feature] - eps
+         
     sns.histplot(data = feature_df,
                  x = feature,
                  hue = "Churn",
@@ -270,9 +280,12 @@ def assign_numeric_entry(feature_df, feature, edges):
     labels = [f"{edges[edge] + 1} \u2013 {edges[edge + 1]}" 
               for edge in range(len(edges) - 1)]
     
+    # "Right = True" argument specifies left boundary value is 
+    # excluded, and right boundary value is included:
     feature_df[f"{feature}_binned"] = pd.cut(feature_df[feature], 
                                              bins = edges, 
-                                             labels = labels)
+                                             labels = labels,
+                                             right = True)
     return feature_df    
 #---------------------------------------------------------------------------------------
 def plot_heatmap(matrix_df, fig_size, c_map, annot_size, bounds, title, 
